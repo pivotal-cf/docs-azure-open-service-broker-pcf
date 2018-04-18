@@ -9,27 +9,34 @@ The Azure Open Service Broker for PCF tile is currently in beta and is intended 
 Do not use this product in a PCF production environment.
 </p>
 
-This documentation describes the Azure Open Service Broker for Pivotal Cloud Foundry (PCF), which is based on [Open Service Broker for Azure](https://github.com/Azure/open-service-broker-azure).
+This documentation describes the Azure Open Service Broker for Pivotal Cloud Foundry (PCF), which is based on [Open Service Broker for Azure (OSBA)](https://github.com/Azure/open-service-broker-azure).
 
 ## <a id='overview'></a>Overview
 
-Open Service Broker for Azure extends Cloud Foundry with Azure-managed services that can be consumed by applications. It exposes services in the Marketplace, manages the provisioning and de-provisioning of service instances, and provides credentials for an application to consume the resource.
+OSBA extends Cloud Foundry with Azure-managed services that can be consumed by applications. It exposes services in the Marketplace, manages the provisioning and de-provisioning of service instances, and provides credentials for an application to consume the resource.
 
 See supported Azure services below.
 
 ## <a id='features'></a>Key Features
 
+Service modules with `Experimental`(Alpha) stability:
+
 * [Azure Container Instances](https://azure.microsoft.com/en-us/services/container-instances/)
-* [Azure CosmosDB](https://azure.microsoft.com/en-us/services/cosmos-db/)
 * [Azure Event Hubs](https://azure.microsoft.com/en-us/services/event-hubs/)
 * [Azure Key Vault](https://azure.microsoft.com/en-us/services/key-vault/)
-* [Azure Database for MySQL](https://azure.microsoft.com/en-us/services/mysql/)
-* [Azure Database for PostgreSQL](https://azure.microsoft.com/en-us/services/postgresql/)
 * [Azure Redis Cache](https://azure.microsoft.com/en-us/services/cache/)
 * [Azure Search](https://azure.microsoft.com/en-us/services/search/)
 * [Azure Service Bus](https://azure.microsoft.com/en-us/services/service-bus/)
-* [Azure SQL Database](https://azure.microsoft.com/en-us/services/sql-database/)
 * [Azure Storage](https://azure.microsoft.com/en-us/services/storage/)
+
+Service modules with `Preview`(Beta) stability:
+
+* [Azure CosmosDB](https://azure.microsoft.com/en-us/services/cosmos-db/)
+* [Azure Database for MySQL](https://azure.microsoft.com/en-us/services/mysql/)
+* [Azure Database for PostgreSQL](https://azure.microsoft.com/en-us/services/postgresql/)
+* [Azure SQL Database](https://azure.microsoft.com/en-us/services/sql-database/)
+
+About stability definition in OSBA: https://github.com/Azure/open-service-broker-azure/blob/master/docs/stability.md
 
 ## <a id="snapshot"></a>Product Snapshot
 
