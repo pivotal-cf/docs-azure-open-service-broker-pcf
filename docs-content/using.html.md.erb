@@ -1,15 +1,674 @@
 ---
-title: Using YOUR-PRODUCT-NAME
+title: Using Azure Open Service Broker for PCF
 owner: Partners
 ---
 
-This topic describes how to use YOUR-PRODUCT-NAME.
+This topic describes how to use Open Service Broker for Azure.
 
-##<a id='using'></a> Using YOUR-PRODUCT-NAME
+Before performing the procedures in this topic, ensure that you have installed the [Cloud Foundry Command Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/index.html) (cf CLI).
 
-**This topic should include any instructions for how to use the service or dashboard created by the tile. 
-Give procedures for how to perform the different functions offered by your product and provide screenshots where necessary.** 
+##<a id="list-services"></a>List Services
 
-**You can also use this section to include information about Architecture and Troubleshooting for known errors. 
-If you include a Troubleshooting section, follow the Symptom/Explanation format used in the 
-[Okta Troubleshooting](http://docs.pivotal.io/p-identity/okta/troubleshooting.html) topic**.
+1. In a terminal window, run `cf marketplace` to list all the service offerings from Open Service Broker for Azure. It only lists the services which reach the **Minimum Module Stability** in **Broker Config**. See the section **Broker Config** in [Installing and Configuring Azure Open Service Broker for PCF](installing.html#broker-config) topic.
+
+1. Run `cf marketplace -s SERVICE` to view the descriptions for the plans of a service.
+
+<p class="note"><strong>Note</strong>: See the <a href="https://azure.microsoft.com/en-us/pricing/">Azure Pricing</a> topic to view pricing details for each service.</p>
+
+##<a id="create"></a>Create Service Instances
+
+This section describes how to create service instances for the services offered by Open Service Broker for Azure.
+
+###<a id="aci"></a>Azure Container Instances
+
+<p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides a new container in ACI. For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/aci.md).
+
+#### Create
+
+To create an azure storage service instance named `myaci` with the `aci` plan:
+
+<pre class="terminal">$ cf create-service azure-aci aci myaci -c '{"image":"nginx", "ports":[80]}'
+</pre>
+
+#### Bind
+
+Bind the service instance `myaci` to an app.
+
+<pre class="terminal">$ cf bind-service myapp myaci
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-aci": [
+   {
+    "credentials": {
+     "publicIPv4Address": "11.111.111.111"
+    },
+    "label": "azure-aci",
+    "name": "myaci",
+    "plan": "aci",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "Container",
+     "Instance"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from the `ENV['VCAP_SERVICES']` environment variable.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="cosmos"></a>Azure CosmosDB
+
+<p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides new CosmosDB database accounts by several services: **azure-cosmosdb-sql-account**, **azure-cosmosdb-mongo-account**, **azure-cosmosdb-graph-account**, and **azure-cosmosdb-table-account**, to be compatible with different APIs.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/cosmosdb.md).
+
+The following gives examples by **azure-cosmosdb-sql-account**.
+
+#### Create
+
+To create an Azure CosmosDB service instance named `mycosmos` with the `account` plan:
+
+<pre class="terminal">$ cf create-service azure-cosmosdb-sql-account account mycosmos
+</pre>
+
+#### Bind
+
+Bind the service instance `mycosmos` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mycosmos
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-cosmos-sql-account": [
+   {
+    "credentials": {
+     "primaryConnectionString": "AccountEndpoint=https://fake.documents.azure.com:443/;AccountKey=fakelongstring==;",
+     "primaryKey": "fakelongstring==",
+     "uri": "https://fake.documents.azure.com:443/"
+    },
+    "label": "azure-cosmos-sql-account",
+    "name": "mycosmos",
+    "plan": "account",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "CosmosDB",
+     "Database",
+     "SQL",
+     "DocumentDB",
+     "Gremlin",
+     "Graph",
+     "Table",
+     "Key-Value"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="eventhubs"></a>Azure Event Hubs
+
+<p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides a new Event Hubs namespace and a new hub within it.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/eventhubs.md).
+
+#### Create
+
+To create an Azure Event Hubs service instance named `myeh` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-eventhubs standard myeh
+</pre>
+
+#### Bind
+
+Bind the service instance `myeh` to an app.
+
+<pre class="terminal">$ cf bind-service myapp myeh
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-eventhubs": [
+   {
+    "credentials": {
+     "connectionString": "Endpoint=sb://fake.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=fakelongstring=",
+     "primaryKey": "fakelongstring="
+    },
+    "label": "azure-eventhubs",
+    "name": "myeh",
+    "plan": "standard",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "Event",
+     "Hubs"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="keyvault"></a>Azure Key Vault
+
+<p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides a new Key Vault.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/keyvault.md).
+
+#### Create
+
+To create an Azure Key Vault service instance named `mykv` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-keyvault standard mykv -c '{"clientId":"11111111-1111-1111-1111-111111111111", "clientSecret":"fakesecret", "objectid":"22222222-2222-2222-2222-222222222222"}'
+</pre>
+
+#### Bind
+
+Bind the service instance `myeventhubs` to an app.
+
+<pre class="terminal">$ cf bind-service myapp myeventhubs
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-keyvault": [
+   {
+    "credentials": {
+     "clientId": "11111111-1111-1111-1111-111111111111",
+     "clientSecret": "fakesecret",
+     "vaultUri": "https://fake.vault.azure.net/"
+    },
+    "label": "azure-keyvault",
+    "name": "mykv",
+    "plan": "standard",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "Key",
+     "Vault"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="mysql"></a>Azure Database for MySQL
+
+<p class="note"><strong>Note</strong>: This module is PREVIEW. It is under moderate development, but future releases may still break the API.</p>
+
+To modules is split into 3 services. Service **azure-mysql** provides a new MySQL DBMS and a new database upon it. Service **azure-mysql-dbms** provides an Azure Database for MySQL DBMS instance containing no databases. Service **azure-mysql-database** provides a new database upon a previously provisioned DBMS.
+
+You can choose to create an independent DBMS instance for your new database with **azure-mysql**, or create databases with **azure-mysql-database** to share an **azure-mysql-dbms**.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/mysql.md).
+
+The following gives examples by **azure-mysql**.
+
+#### Create
+
+To create an Azure Database for MySQL service instance named `mymysql` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-mysql basic50 mymysql
+</pre>
+
+#### Bind
+
+Bind the service instance `mymysql` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mymysql
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-mysql": [
+   {
+    "credentials": {
+     "database": "fakedb",
+     "host": "fake.mysql.database.azure.com",
+     "password": "fakepwd",
+     "port": 3306,
+     "sslRequired": true,
+     "tags": [
+      "mysql"
+     ],
+     "uri": "mysql://fakeuser:fakepwd@fake.mysql.database.azure.com:3306/fakedb?useSSL=true&requireSSL=true",
+     "username": "fakeuser"
+    },
+    "label": "azure-mysql",
+    "name": "mymysql",
+    "plan": "basic50",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "MySQL",
+     "DBMS",
+     "Server",
+     "Database"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="postgresql"></a>Azure Database for PostgreSQL
+
+<p class="note"><strong>Note</strong>: This module is PREVIEW. It is under moderate development, but future releases may still break the API.</p>
+
+To modules is split into 3 services. Service **azure-postgresql** provides a new PostgreSQL DBMS and a new database upon it. Service **azure-postgresql-dbms** provides an Azure Database for PostgreSQL DBMS instance containing no databases. Service **azure-postgresql-database** provides a new database upon a previously provisioned DBMS.
+
+You can choose to create an independent DBMS instance for your new database with **azure-postgresql**, or create databases with **azure-postgresql-database** to share an **azure-postgresql-dbms**.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/postgresql.md).
+
+The following gives examples by **azure-postgresql**.
+
+#### Create
+
+To create an Azure Database for PostgreSQL service instance named `mypgsql` with the `basic50` plan:
+
+<pre class="terminal">$ cf create-service azure-postgresql basic50 mypgsql
+</pre>
+
+#### Bind
+
+Bind the service instance `mypgsql` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mypgsql
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-postgresql": [
+   {
+    "credentials": {
+     "database": "fakedb",
+     "host": "fake.postgres.database.azure.com",
+     "password": "fakepwd",
+     "port": 5432,
+     "sslRequired": true,
+     "tags": [
+      "postgresql"
+     ],
+     "uri": "postgresql://fakeuser:fakepwd@fake.postgres.database.azure.com:3306/fakedb?&sslmode=require",
+     "username": "fakeuser"
+    },
+    "label": "azure-postgresql",
+    "name": "mypgsql",
+    "plan": "basic50",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "PostgreSQL",
+     "DBMS",
+     "Server",
+     "Database"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="rediscache"></a>Azure Redis Cache
+
+<p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides a new Redis cache.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/rediscache.md).
+
+#### Create
+
+To create an Azure Redis Cache service instance named `myredis` with the `basic` plan:
+
+<pre class="terminal">$ cf create-service azure-rediscache basic myredis
+</pre>
+
+#### Bind
+
+Bind the service instance `myredis` to an app.
+
+<pre class="terminal">$ cf bind-service myapp myredis
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-rediscache": [
+   {
+    "credentials": {
+     "host": "fake.redis.cache.windows.net",
+     "password": "fakepwd=",
+     "port": 6379
+    },
+    "label": "azure-rediscache",
+    "name": "myredis",
+    "plan": "basic",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "Redis",
+     "Cache",
+     "Database"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="search"></a>Azure Search
+
+<p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides an Azure Search service.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/search.md).
+
+#### Create
+
+To create an Azure Search service instance named `mysearch` with the `basic` plan:
+
+<pre class="terminal">$ cf create-service azure-search basic mysearch
+</pre>
+
+#### Bind
+
+Bind the service instance `mysearch` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mysearch
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-search": [
+   {
+    "credentials": {
+     "apiKey": "fakeapikey",
+     "serviceName": "fakename"
+    },
+    "label": "azure-search",
+    "name": "mysearch",
+    "plan": "basic",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "Search",
+     "Elasticsearch"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="servicebus"></a>Azure Service Bus
+
+<p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides a new Service Bus namespace.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/servicebus.md).
+
+#### Create
+
+To create an Azure Service Bus service instance named `mysb` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-servicebus standard mysb
+</pre>
+
+#### Bind
+
+Bind the service instance `mysb` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mysb
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-servicebus": [
+   {
+    "credentials": {
+     "connectionString": "Endpoint=sb://fake.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=fakekey=",
+     "primaryKey": "fakekey="
+    },
+    "label": "azure-servicebus",
+    "name": "mysb",
+    "plan": "standard",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "Service",
+     "Bus"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="sql"></a>Azure SQL Database
+
+<p class="note"><strong>Note</strong>: This module is PREVIEW. It is under moderate development, but future releases may still break the API.</p>
+
+To modules is split into 3 services. Service **azure-sql** provides a new SQL Server and a new database upon it. Service **azure-sql-dbms** provides an Azure SQL Server containing no databases. Service **azure-sql-database** provides a new database upon a previously provisioned server.
+
+You can choose to create an independent server for your new database with **azure-sql**, or create databases with **azure-sql-database** to share an **azure-sql-dbms**.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/mssql.md).
+
+The following gives examples by **azure-sql**.
+
+#### Create
+
+To create an Azure SQL Database service instance named `mymssql` with the `basic` plan:
+
+<pre class="terminal">$ cf create-service azure-sql basic mymssql
+</pre>
+
+#### Bind
+
+Bind the service instance `mymssql` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mymssql
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-sql": [
+   {
+    "credentials": {
+     "database": "fakedb",
+     "encrypt": true,
+     "host": "fake.database.windows.net",
+     "jdbcUrl": "jdbc:sqlserver://fake.database.windows.net:1433;database=obdoi2nws0;user=fakeuser;password=fakepwd;encrypt=true;trustServerCertificate=true;",
+     "password": "fakepwd",
+     "port": 1433,
+     "tags": null,
+     "uri": "sqlserver://fakeuser:fakepwd@fake.database.windows.net:1433/fakedb;encrypt=true;trustServerCertificate=true",
+     "username": "fakeuser"
+    },
+    "label": "azure-sql",
+    "name": "mymssql",
+    "plan": "basic",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "SQL",
+     "DBMS",
+     "Server",
+     "Database"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+###<a id="storage"></a>Azure Storage
+
+<p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides the storage resources indicated by the applicable plan-- an account only, or an account with a container.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/storage.md).
+
+#### Create
+
+To create an Azure Storage service instance named `mystorage` with the `standard` plan:
+
+<pre class="terminal">$ cf create-service azure-storage general-purpose-storage-account mystorage
+</pre>
+
+#### Bind
+
+Bind the service instance `mystorage` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mystorage
+</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-storage": [
+   {
+    "credentials": {
+     "accessKey": "fakekey==",
+     "storageAccountName": "fake"
+    },
+    "label": "azure-storage",
+    "name": "mystorage",
+    "plan": "general-purpose-storage-account",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "Storage"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+
+##<a id="delete"></a>Delete a Service Instance
+
+<p class="note"><strong>Note</strong>: Before deleting a service instance, ensure there are no apps bound to the service instance and no data contained within, such as objects in a storage account.</p>
+Run the following command to delete a service instance:
+<pre class="terminal">$ cf delete-service YOUR-SERVICE-INSTANCE
+Really delete the service YOUR-SERVICE-INSTANCE> y
+Deleting service YOUR-SERVICE-INSTANCE in org system / space dev1 as appdev1...
+OK
+Delete in progress. Use 'cf services' or 'cf service YOUR-SERVICE-INSTANCE' to check operation status.
+</pre>
