@@ -3,13 +3,15 @@ title: Using Azure Open Service Broker for PCF
 owner: Partners
 ---
 
-This topic describes how to use Open Service Broker for Azure.
+This topic describes how to use Azure Open Service Broker for Pivotal Cloud Foundry (PCF).
 
 Before performing the procedures in this topic, ensure that you have installed the [Cloud Foundry Command Line Interface](http://docs.pivotal.io/pivotalcf/cf-cli/index.html) (cf CLI).
 
 ##<a id="list-services"></a>List Services
 
-1. In a terminal window, run `cf marketplace` to list all the service offerings from Open Service Broker for Azure. It only lists the services which reach the **Minimum Module Stability** in **Broker Config**. See the section **Broker Config** in [Installing and Configuring Azure Open Service Broker for PCF](installing.html#broker-config) topic.
+1. In a terminal window, run `cf marketplace` to list all the service offerings fromthe Azure Open Service Broker for PCF. 
+It only lists the services which reach the **Minimum Module Stability** set in **Broker Config**. 
+See the section **Broker Config** in [Installing and Configuring Azure Open Service Broker for PCF](installing.html#broker-config) topic.
 
 1. Run `cf marketplace -s SERVICE` to view the descriptions for the plans of a service.
 
@@ -17,7 +19,7 @@ Before performing the procedures in this topic, ensure that you have installed t
 
 ##<a id="create"></a>Create Service Instances
 
-This section describes how to create service instances for the services offered by Open Service Broker for Azure.
+This section describes how to create servicei instances for the services offered by Azure Open Service Broker for Broker.
 
 ###<a id="aci"></a>Azure Container Instances
 
@@ -68,7 +70,7 @@ The credentials have the following format:
 
 You can get the credentials from the `ENV['VCAP_SERVICES']` environment variable.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="cosmos"></a>Azure CosmosDB
 
@@ -131,7 +133,7 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="eventhubs"></a>Azure Event Hubs
 
@@ -185,7 +187,7 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="keyvault"></a>Azure Key Vault
 
@@ -240,19 +242,19 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="mysql"></a>Azure Database for MySQL
 
 <p class="note"><strong>Note</strong>: This module is PREVIEW. It is under moderate development, but future releases may still break the API.</p>
 
-To modules is split into 3 services. Service **azure-mysql** provides a new MySQL DBMS and a new database upon it. Service **azure-mysql-dbms** provides an Azure Database for MySQL DBMS instance containing no databases. Service **azure-mysql-database** provides a new database upon a previously provisioned DBMS.
+This module is split into 3 services. Service **azure-mysql** provides a new MySQL DBMS and a new database upon it. Service **azure-mysql-dbms** provides an Azure Database for MySQL DBMS instance containing no databases. Service **azure-mysql-database** provides a new database upon a previously provisioned DBMS.
 
 You can choose to create an independent DBMS instance for your new database with **azure-mysql**, or create databases with **azure-mysql-database** to share an **azure-mysql-dbms**.
 
 For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/mysql.md).
 
-The following gives examples by **azure-mysql**.
+The following gives an example of **azure-mysql**.
 
 #### Create
 
@@ -308,19 +310,19 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="postgresql"></a>Azure Database for PostgreSQL
 
 <p class="note"><strong>Note</strong>: This module is PREVIEW. It is under moderate development, but future releases may still break the API.</p>
 
-To modules is split into 3 services. Service **azure-postgresql** provides a new PostgreSQL DBMS and a new database upon it. Service **azure-postgresql-dbms** provides an Azure Database for PostgreSQL DBMS instance containing no databases. Service **azure-postgresql-database** provides a new database upon a previously provisioned DBMS.
+This module is split into 3 services. Service **azure-postgresql** provides a new PostgreSQL DBMS and a new database upon it. Service **azure-postgresql-dbms** provides an Azure Database for PostgreSQL DBMS instance containing no databases. Service **azure-postgresql-database** provides a new database upon a previously provisioned DBMS.
 
 You can choose to create an independent DBMS instance for your new database with **azure-postgresql**, or create databases with **azure-postgresql-database** to share an **azure-postgresql-dbms**.
 
 For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/postgresql.md).
 
-The following gives examples by **azure-postgresql**.
+The following gives an example of **azure-postgresql**.
 
 #### Create
 
@@ -376,7 +378,7 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="rediscache"></a>Azure Redis Cache
 
@@ -486,7 +488,7 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="servicebus"></a>Azure Service Bus
 
@@ -540,13 +542,13 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="sql"></a>Azure SQL Database
 
 <p class="note"><strong>Note</strong>: This module is PREVIEW. It is under moderate development, but future releases may still break the API.</p>
 
-To modules is split into 3 services. Service **azure-sql** provides a new SQL Server and a new database upon it. Service **azure-sql-dbms** provides an Azure SQL Server containing no databases. Service **azure-sql-database** provides a new database upon a previously provisioned server.
+This module is split into 3 services. Service **azure-sql** provides a new SQL Server and a new database upon it. Service **azure-sql-dbms** provides an Azure SQL Server containing no databases. Service **azure-sql-database** provides a new database upon a previously provisioned server.
 
 You can choose to create an independent server for your new database with **azure-sql**, or create databases with **azure-sql-database** to share an **azure-sql-dbms**.
 
@@ -607,13 +609,13 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ###<a id="storage"></a>Azure Storage
 
 <p class="note"><strong>Note</strong>: This module is EXPERIMENTAL and future releases may break the API.</p>
 
-This module provides the storage resources indicated by the applicable plan-- an account only, or an account with a container.
+This module provides the storage resources indicated by the applicable plan and account only, or an account with a container.
 
 For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/master/docs/modules/storage.md).
 
@@ -660,7 +662,7 @@ The credentials have the following format:
 
 You can get the credentials from `ENV['VCAP_SERVICES']`.
 
-<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to delete the binding.</p>
+<p class="note"><strong>Note</strong>: Run <code>cf unbind-service</code> to remove the binding.</p>
 
 ##<a id="delete"></a>Delete a Service Instance
 
