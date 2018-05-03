@@ -3,11 +3,11 @@ title: Installing and Configuring Azure Open Service Broker for PCF
 owner: Partners
 ---
 
-This topic describes how to install and configure Azure Open Service Broker for Pivotal Cloud Foundry(PCF).
+This topic describes how to install and configure Azure Open Service Broker for Pivotal Cloud Foundry (PCF).
 
-<p class="note"><strong>Note</strong>: This software is Beta quality. Releases prior to v1.0.0 may introduce breaking changes, and should not be used in production.</p>
+<p class="note"><strong>Note</strong>: This software is beta quality. Releases prior to v1.0.0 may introduce breaking changes, and should not be used in production.</p>
 
-##<a id='account'></a> Step 1: Set up Azure
+##<a id='account'></a> Step 1: Set Up Azure
 
 In this step, you configure your Azure account to allow the Microsoft Open Service Broker for Azure to create and manage Azure resources.
 
@@ -15,12 +15,12 @@ In this step, you configure your Azure account to allow the Microsoft Open Servi
 
 1. Create a service principal by following [these steps](https://github.com/Azure/open-service-broker-azure/tree/master/contrib/cf).
 
-<p class="note"><strong>Note</strong>: The <code>Contributor</code> role needs to be assigned to the service principal. </p>
+<p class="note"><strong>Note:</strong> The <code>Contributor</code> role needs to be assigned to the service principal.</p>
 
 ##<a id='redis'></a>Step 2: Create a Redis Host for Service Broker
 
 The Azure Open Service Broker for PCF stores information, like the provisioning information of a
-service instance, in the redis database.
+service instance, in the Redis database.
 Follow [these steps](https://github.com/Azure/open-service-broker-azure/tree/master/contrib/cf#create-an-azure-redis-cache) to create a Redis Cache instance on Azure.
 
 ##<a id='install'></a>Step 3: Install and Configure Azure Open Service Broker for PCF
@@ -41,7 +41,6 @@ The setup in [Step 1](#account) must be successfully completed before beginning 
 You will need the Azure and database parameters from that step to successfully configure the broker.
 
 1. Click **Azure Config**.
-
     <%= image_tag("images/osba-azureconfig.png") %>
 
 1. For **Azure Environment**, select `Azure Public Cloud` for Azure accounts on public Azure.
@@ -55,7 +54,6 @@ You will need the Azure and database parameters from that step to successfully c
 ###<a id='broker-config'></a> Broker Config
 
 1. Click **Broker Config**.
-
     <%= image_tag("images/osba-brokerconfig.png") %>
 
 1. For **Log Level**, select `INFO` if you are not tracking broker issues.
@@ -68,11 +66,11 @@ You will need the Azure and database parameters from that step to successfully c
 
 1. For **Storage Redis DB**, enter `0` to use the first database in Redis to store the information of service instances.
 
-1. Check the box of **Storage Redis Enable TLS** for default-created Azure Redis Cache.
+1. Check the **Storage Redis Enable TLS** checkbox for default-created Azure Redis Cache.
 
 1. Specify `AES256` as **Storage Encryption Scheme**. It is the only supported encryption scheme for now.
 
-1. For **Storage AES256 KEY**, enter a 32 character string. Keep this string somewhere in case it is needed in the future..
+1. For **Storage AES256 KEY**, enter a 32-character string. Keep this string somewhere in case it is needed in the future.
 
 1. For **Async Redis Host**, **Async Redis Password**, and **Async Redis Port**, you can reuse the same Redis Host as **Storage**. And set **Async Redis DB** by `1` to use a different database. Then also check the box of **Async Redis Enable TLS**.
 
@@ -81,12 +79,11 @@ You will need the Azure and database parameters from that step to successfully c
 ###<a id='defaultparameters-config'></a> Default Parameters Config
 
 1. Click **Default Parameters Config**.
-
     <%= image_tag("images/osba-defaultparametersconfig.png") %>
 
 1. Both **Default Resource Group** and **Default Location** are optional.
-If present, you don't need to specify these parameters when you use CF CLI to create new service
-instances. Tthe new Azure resources will be created in the resource group in the specified region on Azure.
+If present, you do not need to specify these parameters when you use CF CLI to create new service
+instances. The new Azure resources will be created in the resource group in the specified region on Azure.
 
 1. Click **Save**.
 
@@ -97,11 +94,9 @@ named <code>open-services-broker-azure</code> in the
 <code>open-service-broker-azure-space</code> space of the <code>system</code> org.</p>
 
 1. After Ops Manager finishes the installation, the **Microsoft Open Service Broker for Azure** appears as a green tile in the **Installation Dashboard**.
-
     <%= image_tag("images/osba-install.png") %>
 
 1. In Apps Manager, the new services are listed in the **Marketplace**, and are exposed to all orgs and spaces. Users can create instances of these services only by using the Cloud Foundry Command Line Interface (cf CLI) because Apps Manager does not support asynchronous services. See the [Using Microsoft Open Service Broker for Azure](using.html) topic for more information.
-
     <%= image_tag("images/osba-marketplace.png") %>
 
 
