@@ -37,7 +37,7 @@ and click **Apply Changes** to install the Azure Open Service Broker for PCF til
 
 ###<a id='azure-config'></a> Azure Config
 
-The setup in [Step 1](#account) must be successfully completed before beginning this configuration. 
+The setup in [Step 1](#account) must be successfully completed before beginning this configuration.
 You will need the Azure and database parameters from that step to successfully configure the broker.
 
 1. Click **Azure Config**.
@@ -73,17 +73,6 @@ You will need the Azure and database parameters from that step to successfully c
 1. For **Storage AES256 KEY**, enter a 32-character string. Keep this string somewhere in case it is needed in the future.
 
 1. For **Async Redis Host**, **Async Redis Password**, and **Async Redis Port**, you can reuse the same Redis Host as **Storage**. And set **Async Redis DB** by `1` to use a different database. Then also check the box of **Async Redis Enable TLS**.
-
-1. Click **Save**.
-
-###<a id='defaultparameters-config'></a> Default Parameters Config
-
-1. Click **Default Parameters Config**.
-    <%= image_tag("images/osba-defaultparametersconfig.png") %>
-
-1. Both **Default Resource Group** and **Default Location** are optional.
-If present, you do not need to specify these parameters when you use CF CLI to create new service
-instances. The new Azure resources will be created in the resource group in the specified region on Azure.
 
 1. Click **Save**.
 
