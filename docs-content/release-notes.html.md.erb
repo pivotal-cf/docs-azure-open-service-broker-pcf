@@ -2,6 +2,15 @@
 title: Azure Open Service Broker for PCF Release Notes
 owner: Partners
 ---
+### v0.11.0
+**Release Date:** Sep 28, 2018
+
+* This tile starts its own version numbering, which will be different from its source -- OSBA. This tile v0.11.0 bases on OSBA release v1.1.0.
+
+* See OSBA release notes from v0.11.0 to v1.1.0: https://github.com/Azure/open-service-broker-azure/releases. Please notice that there are breaking changes in OSBA v1.0.0. Before installing the tile, you need to deprovision all the service instances created by the v0.10.0 tile and uninstall it.
+
+* The tile is kept Beta, as Pivotal suggested, because the migration path from its predecessor [Azure Service Broker](https://docs.pivotal.io/partners/azure-sb/) is not ready. As the tile already bases on a GA OSBA, we guarantee that there will be no breaking changes when the tile reaches GA if you don't need that migration. On the other hand, please hold on production usage if you need that migration.
+
 ### v0.10.0
 **Release Date:** May 8, 2018
 
