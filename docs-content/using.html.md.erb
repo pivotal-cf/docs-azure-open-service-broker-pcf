@@ -23,11 +23,11 @@ This section describes how to create service instances for the services offered 
 
 ###<a id="cosmosdb"></a>Azure CosmosDB
 
-<p class="note"><strong>Note:</strong> This module is experimental and future releases may break the API.</p>
+<p class="note"><strong>Note:</strong> This module is preview and future releases may break the API.</p>
 
 This module provides new CosmosDB database accounts by several services: **azure-cosmosdb-sql**, **azure-cosmosdb-sql-account**, **azure-cosmosdb-sql-database**, **azure-cosmosdb-mongo-account**, **azure-cosmosdb-graph-account**, and **azure-cosmosdb-table-account**, to be compatible with different APIs.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/cosmosdb.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/cosmosdb.md).
 
 The following gives examples by **azure-cosmosdb-sql**.
 
@@ -132,7 +132,7 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 This module provides a new Event Hubs namespace and a new hub within it.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/eventhubs.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/eventhubs.md).
 
 #### Create
 
@@ -186,7 +186,7 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 This module provides a new Key Vault.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/keyvault.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/keyvault.md).
 
 #### Create
 
@@ -242,7 +242,7 @@ This module is split into three services. Service **azure-mysql-5-7** provides a
 You can choose to create an independent DBMS instance for your new database with **azure-mysql-5-7**
 or create databases with **azure-mysql-5-7-database** to share an **azure-mysql-5-7-dbms**.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/mysql.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/mysql.md).
 
 The following gives an example of **azure-mysql-5-7**.
 
@@ -308,7 +308,7 @@ This module is split into three services. Service **azure-postgresql-9-6** provi
 
 You can choose to create an independent DBMS instance for your new database with **azure-postgresql-9-6** or create databases with **azure-postgresql-9-6-database** to share an **azure-postgresql-9-6-dbms**.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/postgresql.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/postgresql.md).
 
 The following gives an example of **azure-postgresql-9-6**.
 
@@ -374,7 +374,7 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 This module provides a new Redis cache.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/rediscache.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/rediscache.md).
 
 #### Create
 
@@ -430,7 +430,7 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 This module provides a new Service Bus namespace.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/servicebus.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/servicebus.md).
 
 #### Create
 
@@ -483,7 +483,7 @@ This module is split into three services. Service **azure-sql-12-0** provides a 
 
 You can choose to create an independent server for your new database with **azure-sql-12-0** or create databases with **azure-sql-12-0-database** to share an **azure-sql-12-0-dbms**.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/mssql.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/mssql.md).
 
 The following gives examples by **azure-sql-12-0**.
 
@@ -547,7 +547,7 @@ You can get the credentials from `ENV['VCAP_SERVICES']`.
 
 This module provides the storage resources indicated by the applicable plan and account only, or an account with a container.
 
-For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.1.0/docs/modules/storage.md).
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/storage.md).
 
 #### Create
 
@@ -581,6 +581,61 @@ The credentials have the following format:
     "tags": [
      "Azure",
      "Storage"
+    ],
+    "volume_mounts": []
+   }
+  ]
+ }
+}
+</pre>
+
+You can get the credentials from `ENV['VCAP_SERVICES']`.
+
+<p class="note"><strong>Note:</strong> Run <code>cf unbind-service</code> to remove the binding.</p>
+
+###<a id="textanalytics"></a>Azure Text Analytics (Cognitive Services)
+
+<p class="note"><strong>Note:</strong> This module is EXPERIMENTAL and future releases may break the API.</p>
+
+This module provides a Text Analytics API.
+
+For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/textanalytics.md).
+
+#### Create
+
+To create an Azure Text Analytics service instance named `mytextanalytics` with the `standard-s0` plan:
+
+<pre class="terminal">$ cf create-service azure-text-analytics standard-s0 mytextanalytics -c '{"resourceGroup":"osba", "location":"westus"}'
+</pre>
+
+#### Bind
+
+Bind the service instance `mytextanalytics` to an app.
+
+<pre class="terminal">$ cf bind-service myapp mytextanalytics</pre>
+
+The credentials have the following format:
+
+<pre class="terminal">
+{
+ "VCAP_SERVICES": {
+  "azure-text-analytics": [
+   {
+    "credentials": {
+     "textAnalyticsEndpoint": "fakeendpoint",
+     "textAnalyticsKey": "fakekey",
+     "textAnalyticsName": "fakename"
+    },
+    "label": "azure-text-analytics",
+    "name": "mytextanalytics",
+    "plan": "standard-s0",
+    "provider": null,
+    "syslog_drain_url": null,
+    "tags": [
+     "Azure",
+     "Cognitive",
+     "Text Analytics",
+     "Analytics"
     ],
     "volume_mounts": []
    }
