@@ -21,11 +21,11 @@ See the section **Broker Config** in [Installing and Configuring Azure Open Serv
 
 This section describes how to create service instances for the services offered by Azure Open Service Broker for Broker.
 
-###<a id="cosmosdb"></a>Azure CosmosDB
+###<a id="cosmosdb"></a>Azure Cosmos DB
 
 <p class="note"><strong>Note:</strong> This module is preview and future releases may break the API.</p>
 
-This module provides new CosmosDB database accounts by several services: **azure-cosmosdb-sql**, **azure-cosmosdb-sql-account**, **azure-cosmosdb-sql-database**, **azure-cosmosdb-mongo-account**, **azure-cosmosdb-graph-account**, and **azure-cosmosdb-table-account**, to be compatible with different APIs.
+This module provides new Cosmos DB database accounts by several services: **azure-cosmosdb-sql**, **azure-cosmosdb-sql-account**, **azure-cosmosdb-sql-database**, **azure-cosmosdb-mongo-account**, **azure-cosmosdb-graph-account**, and **azure-cosmosdb-table-account**, to be compatible with different APIs.
 
 For more information, see [this topic](https://github.com/Azure/open-service-broker-azure/blob/v1.2.0/docs/modules/cosmosdb.md).
 
@@ -33,7 +33,7 @@ The following gives examples by **azure-cosmosdb-sql**.
 
 #### Create
 
-To create an Azure CosmosDB service instance named `mycosmosdb` with the `sql-api` plan:
+To create an Azure Cosmos DB service instance named `mycosmosdb` with the `sql-api` plan:
 
 <pre class="terminal">$ cf create-service azure-cosmosdb-sql-account sql-api mycosmos -c '{"resourceGroup":"osba", "location":"westus"}'
 </pre>
