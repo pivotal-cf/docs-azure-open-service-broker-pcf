@@ -1,9 +1,9 @@
 ---
-title: Installing and Configuring Azure Open Service Broker for PCF
+title: Installing and Configuring Azure Open Service Broker for Pivotal Platform
 owner: Partners
 ---
 
-This topic describes how to install and configure Azure Open Service Broker for Pivotal Cloud Foundry (PCF).
+This topic describes how to install and configure Azure Open Service Broker for Pivotal Platform.
 
 <p class="note"><strong>Note</strong>: This software is beta quality. Releases prior to v1.0.0 may introduce breaking changes, and should not be used in production.</p>
 
@@ -19,11 +19,11 @@ In this step, you configure your Azure account to allow the Microsoft Open Servi
 
 ##<a id='redis'></a>Step 2: Create a Redis Host for Service Broker
 
-The Azure Open Service Broker for PCF stores information, like the provisioning information of a
+The Azure Open Service Broker for Pivotal Platform stores information, like the provisioning information of a
 service instance, in the Redis database.
 Follow [these steps](https://github.com/Azure/open-service-broker-azure/tree/master/contrib/cf#create-an-azure-redis-cache) to create a Redis Cache instance on Azure.
 
-##<a id='install'></a>Step 3: Install and Configure Azure Open Service Broker for PCF
+##<a id='install'></a>Step 3: Install and Configure Azure Open Service Broker for Pivotal Platform
 
 1. Download the product file from [Pivotal Network](https://network.pivotal.io/products/open-service-broker-azure).
 
@@ -33,7 +33,7 @@ Follow [these steps](https://github.com/Azure/open-service-broker-azure/tree/mas
 
 1. Click the newly added **Microsoft Open Service Broker for Azure** tile to configure the sections
 as described below. After the configuration, return to the Ops Manager Installation Dashboard
-and click **Apply Changes** to install the Azure Open Service Broker for PCF tile.
+and click **Apply Changes** to install the Azure Open Service Broker for Pivotal Platform tile.
 
 ###<a id='azure-config'></a> Azure Config
 
@@ -78,7 +78,7 @@ You will need the Azure and database parameters from that step to successfully c
 
 ##<a id='confirm'></a> Step 4: Confirm Installation
 
-<p class="note"><strong>Note</strong>: The Azure Open Service Broker for PCF installs an app
+<p class="note"><strong>Note</strong>: The Azure Open Service Broker for Pivotal Platform installs an app
 named <code>open-services-broker-azure</code> in the
 <code>open-service-broker-azure-space</code> space of the <code>system</code> org.</p>
 
@@ -91,6 +91,6 @@ named <code>open-services-broker-azure</code> in the
 
 ##<a id="service-access"></a>Step 5: Confirm Service and Plan Access
 
-The Azure Open Service Broker for PCF is installed with all services enabled by default. All services can be listed in the Marketplace.
+The Azure Open Service Broker for Pivotal Platform is installed with all services enabled by default. All services can be listed in the Marketplace.
 
 You can disable or enable any services through the cf CLI using the `cf disable-service-access` or `cf enable-service-access` commands.
